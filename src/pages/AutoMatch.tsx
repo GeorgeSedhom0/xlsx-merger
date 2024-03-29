@@ -126,8 +126,9 @@ const AutoMatch = () => {
 
     secFileData.slice(1).forEach((row) => {
       const matchRow = mainFileData.find((mainRow) =>
+        // any matching rows using the matching indexes
         matchingIndexInMainFile.some(
-          (i) => mainRow[i] === row[matchingIndexInSecFile[0]]
+          (i, index) => mainRow[i] === row[matchingIndexInSecFile[index]]
         )
       );
       if (matchRow) {

@@ -90,10 +90,10 @@ const ManMatch = () => {
     if (!query) setOptions([]);
 
     const matches: { id: number; str: string }[] = [];
-    mainFileData.slice(1).forEach((row, i) => {
+    mainFileData.slice(1).forEach((row, _) => {
       if (row.length < 4) return;
       if (row[2].includes(query) || `${row[3]}`.includes(query)) {
-        matches.push({ id: i, str: row[2] });
+        matches.push({ id: parseInt(row[0]), str: row[2] });
       }
     });
     setOptions(matches.slice(0, 10));
@@ -207,6 +207,10 @@ const ManMatch = () => {
               <Autocomplete
                 options={options}
                 getOptionLabel={(option) => option.str}
+                isOptionEqualToValue={(option, value) => {
+                  return option.id === value.id;
+                }}
+                filterOptions={x=>x}
                 style={{ width: 300 }}
                 renderInput={(params) => (
                   <TextField
